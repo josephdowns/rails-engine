@@ -44,4 +44,20 @@ describe "Merchants API" do
 
     expect(response).to_not be_successful
   end
+
+  it "can display all items for a merchant" do
+    merchant1 = create(:merchant)
+    item1 = create(:item, merchant_id: merchant1.id)
+    item2 = create(:item, merchant_id: merchant1.id)
+    item3 = create(:item, merchant_id: merchant1.id)
+
+    get "/api/v1/merchants/#{merchant1.id}/items"
+
+    response_body = JSON.parse(response.body, symbolize_names: true)
+    items = response_body[:data]
+binding.pry
+    expect(response).to be_successful
+    expect(merchant1.items.count).to eq(3)
+
+  end
 end
