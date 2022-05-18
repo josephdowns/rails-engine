@@ -37,13 +37,13 @@ describe "Merchants API" do
     expect(merchant[:attributes][:name]).to be_a(String)
   end
 
-  xit "will not find a merchant with invalid id" do
-    id = "64f"
-
-    get "/api/v1/merchants/#{id}"
-
-    expect(response).to_not be_successful
-  end
+  # xit "will not find a merchant with invalid id" do
+  #   id = "64f"
+  #
+  #   get "/api/v1/merchants/#{id}"
+  #
+  #   expect(response).to_not be_successful
+  # end
 
   it "can display all items for a merchant" do
     merchant1 = create(:merchant)
