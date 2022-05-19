@@ -71,6 +71,16 @@ describe "Items API" do
     expect(item.name).to eq("Special Spork")
   end
 
+  it "fails to update an item" do
+    item = create(:item)
+    id = item.id
+    item_params = { name: "" }
+    headers = {"CONTENT_TYPE" => "application/json"}
+
+    patch "/api/v1/items/#{id}", headers: headers, params: JSON.generate({item: item_params})
+    expect(response).to_not be_successful
+  end
+
   it "can create a new item" do
     merchant = create(:merchant)
     item_params = ({
