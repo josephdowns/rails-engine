@@ -24,4 +24,14 @@ RSpec.describe "Search Items API" do
     end
 
   end
+
+  it "returns an error when blank" do
+    get "/api/v1/items/find_all"
+
+    response_body = JSON.parse(response.body, symbolize_names: true)
+    body = response_body[:data]
+
+    expect(response).to_not be_successful
+    expect(body[:error]).to eq("Please enter a search criteria")
+  end
 end
