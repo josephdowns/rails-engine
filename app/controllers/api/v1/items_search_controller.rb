@@ -3,7 +3,7 @@ class Api::V1::ItemsSearchController < ApplicationController
     if params[:name] == ""
       render json: {data: {error: "Search cannot be empty"}}, status: 400
     elsif params[:name]
-      items = Item.search_all(params[:name])
+      items = Item.search_items(params[:name])
       render json: ItemSerializer.new(items) if items
       render json: {data: {error: "No items found"}} if !items
     else
