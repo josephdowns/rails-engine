@@ -2,10 +2,10 @@ require 'rails_helper'
 
 RSpec.describe "Search Items API" do
   before(:each) do
-    item1 = create(:item, name: "The Ring")
-    item2 = create(:item, name: "Auring")
-    item3 = create(:item, name: "Ring Mushroom")
-    item4 = create(:item, name: "Special Spork")
+    item1 = create(:item, name: "The Ring", unit_price: 25)
+    item2 = create(:item, name: "Auring", unit_price: 25)
+    item3 = create(:item, name: "Ring Mushroom", unit_price: 50)
+    item4 = create(:item, name: "Special Spork", unit_price: 75)
   end
 
   it "can find all items" do
@@ -43,5 +43,26 @@ RSpec.describe "Search Items API" do
 
     expect(response).to_not be_successful
     expect(body[:error]).to eq("Search cannot be empty")
+  end
+
+  it "searchs by min price" do
+
+    get "/api/v1/items/find_all?min_price=50"
+
+    response_body = JSON.parse(response.body, symbolize_names: true)
+    body = response_body[:data]
+
+    expect(body.count).to eq(2)
+
+  end
+
+  it "searchs by max price" do
+
+    get "/api/v1/items/find_all?max_price=50"
+
+    response_body = JSON.parse(response.body, symbolize_names: true)
+    body = response_body[:data]
+
+    expect(body.count).to eq(3)
   end
 end
