@@ -11,7 +11,8 @@ orbs:
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
   build:
-    docker: - image: cimg/ruby:2.7.4-node # use a tailored CircleCI docker image.
+    docker: 
+      - image: cimg/ruby:2.7.4-node # use a tailored CircleCI docker image.
         auth:
           username: mydockerhub-user
           password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
